@@ -1,5 +1,6 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.services;
 
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -9,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 
+@Service
 public class GradleConversionService {
 
     private Document createDocument(String xml) throws ParserConfigurationException, IOException, SAXException {
