@@ -12,10 +12,10 @@ public class HomeController {
     private GradleConversionService gradleConversionService;
     private MavenConversionService mavenConversionService;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String convert(Model model){
 
-        return "convertDependency";
+        return "index";
     }
 
 }

@@ -17,5 +17,5 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.4.RELEASE'
 }
