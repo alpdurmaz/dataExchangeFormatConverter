@@ -3,16 +3,29 @@ package com.converter.dependencyConverter;
 import com.converter.dependencyConverter.services.MavenConversionService;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MavenConversionServiceTest {
 
-    private static final String gradleDependency = "compile group: 'org.scala-lang', name: 'scala-library', version: '2.13.0'";
-    private static final String result = "<dependency>\n\t<groupId>org.scala-lang</groupId>\n\t<artifactId>scala-library</artifactId>\n" +
-            "\t<version>2.13.0</version>\n</dependency>";
-
     private MavenConversionService testMavenConversionService;
+
+    private static final String xml = "<dependency>\n<groupId>org.springframework</groupId>\n" +
+            "<artifactId>spring-core</artifactId>\n<version>5.1.8.RELEASE</version>\n</dependency>";
+
+    private static final String result = "compile group:'org.springframework', name:spring-core', version:'5.1.8.RELEASE'";
+
+    private static final String xmlTestScope = "<dependency>\n<groupId>org.springframework</groupId>\n" +
+            "<artifactId>spring-core</artifactId>\n<version>5.1.8.RELEASE</version>\n<scope>test</scope>\n</dependency>";
+
+    private static final String resultTestScope = "testCompile group:'org.springframework', name:spring-core', version:'5.1.8.RELEASE'";
+
+    private static final String badXml = "<dep>\n<groupId>org.springframework</groupId>\n" +
+            "<artifactId>spring-core</artifactId>\n<version>5.1.8.RELEASE</version>\n</dep>";
 
     @Before
     public void setUp(){
@@ -20,7 +33,20 @@ public class MavenConversionServiceTest {
     }
 
     @Test
-    public void test(){
-        assertThat(testMavenConversionService.convertToMavenDependency(gradleDependency)).isEqualTo(result);
+    public void whenXmlGivenShouldReturnGradleFormat() throws IOException, SAXException, ParserConfigurationException {
+
+        assertThat(testMavenConversionService.convertDependency(xml)).isEqualTo(result);
+    }
+
+    @Test
+    public void whenXmlTestScopeGivenShouldReturnResultTestScopeFormat() throws IOException, SAXException, ParserConfigurationException {
+
+        assertThat(testMavenConversionService.convertDependency(xmlTestScope)).isEqualTo(resultTestScope);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenBadXmlGivenShouldThrownException() throws IOException, SAXException, ParserConfigurationException {
+
+        testMavenConversionService.convertDependency(badXml);
     }
 }

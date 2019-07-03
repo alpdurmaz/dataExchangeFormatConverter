@@ -1,51 +1,35 @@
 package com.converter.dependencyConverter.services;
 
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
 
 @Service
-public class GradleConversionService {
+public class GradleConversionService implements DependencyConverter{
 
-    private Document createDocument(String xml) throws ParserConfigurationException, IOException, SAXException {
+    public String convertDependency(String dependency){
 
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+        String [] elements = dependency.split(",");
+        String groupId = "", artifactId = "", version = "";
 
-        return document;
-    }
+        for (String element : elements) {
 
-    private String createGradleDeclaration(Document document, String mavenPomTag){
+            if(element.split("'").length < 2){
+                continue;
+            }
 
-        return document.getElementsByTagName(mavenPomTag).item(0).getTextContent();
-    }
+            if(element.contains("compile group") || element.contains("testCompile group")){
+                groupId = element.split("'")[1];
+            }
 
-    public String convertToGradleDependency(String xml) throws ParserConfigurationException, SAXException, IOException {
+            if(element.contains("name")){
+                artifactId = element.split("'")[1];
+            }
 
-        Document document = createDocument(xml);
-
-        if(document.getElementsByTagName("dependency").item(0) == null){
-            throw new RuntimeException("Invalid Dependency");
-        }
-
-        String compileGroup = createGradleDeclaration(document, "groupId");
-        String name = createGradleDeclaration(document, "artifactId");
-        String version = createGradleDeclaration(document, "version");
-
-        if(document.getElementsByTagName("scope").item(0) != null){
-            if(document.getElementsByTagName("scope").item(0)
-                    .getTextContent().equalsIgnoreCase("test")){
-                return "testCompile group:'" + compileGroup + "'" +  ", " + "name" +  ":" + name + "'" + ", " +  "version" + ":"
-                        + "'" + version + "'";
+            if(element.contains("version")){
+                version = element.split("'")[1];
             }
         }
 
-        return "compile group:'" + compileGroup + "'" +  ", " + "name" +  ":" + name + "'" + ", " +  "version" + ":"
-                + "'" + version + "'";
+        return "<dependency>\n\t<groupId>" + groupId + "</groupId>\n\t" + "<artifactId>" + artifactId + "</artifactId>\n\t"
+                + "<version>" + version + "</version>\n" + "</dependency>";
     }
 }

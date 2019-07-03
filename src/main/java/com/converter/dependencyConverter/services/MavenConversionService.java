@@ -1,31 +1,60 @@
 package com.converter.dependencyConverter.services;
 
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
 
 @Service
-public class MavenConversionService {
+public class MavenConversionService implements DependencyConverter {
 
-    public String convertToMavenDependency(String gradleDependency){
+    private Document createDocument(String xml) throws ParserConfigurationException, IOException, SAXException {
 
-        String [] elements = gradleDependency.split(",");
-        String groupId = "", artifactId = "", version = "";
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
 
-        for (String element : elements) {
+        return document;
+    }
 
-            if(element.contains("compile group") || element.contains("testCompile group")){
-                groupId = element.split("'")[1];
-            }
+    private String createGradleDeclaration(Document document, String mavenPomTag){
 
-            if(element.contains("name")){
-                artifactId = element.split("'")[1];
-            }
+        return document.getElementsByTagName(mavenPomTag).item(0).getTextContent();
+    }
 
-            if(element.contains("version")){
-                version = element.split("'")[1];
+    public String convertDependency(String dependency) {
+
+        Document document = null;
+        try {
+            document = createDocument(dependency);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+        if(document.getElementsByTagName("dependency").item(0) == null){
+            throw new RuntimeException("Invalid Dependency");
+        }
+
+        String compileGroup = createGradleDeclaration(document, "groupId");
+        String name = createGradleDeclaration(document, "artifactId");
+        String version = createGradleDeclaration(document, "version");
+
+        if(document.getElementsByTagName("scope").item(0) != null){
+            if(document.getElementsByTagName("scope").item(0)
+                    .getTextContent().equalsIgnoreCase("test")){
+                return "testCompile group:'" + compileGroup + "'" +  ", " + "name" +  ":" + name + "'" + ", " +  "version" + ":"
+                        + "'" + version + "'";
             }
         }
 
-        return "<dependency>\n\t<groupId>" + groupId + "</groupId>\n\t" + "<artifactId>" + artifactId + "</artifactId>\n\t"
-                + "<version>" + version + "</version>\n" + "</dependency>";
+        return "compile group:'" + compileGroup + "'" +  ", " + "name" +  ":" + name + "'" + ", " +  "version" + ":"
+                + "'" + version + "'";
     }
 }
