@@ -20,6 +20,9 @@ public class DependencyConversionService implements DependencyConverter{
 
     private void recognize(String dependency){
 
+        dependency = dependency.replaceFirst("[\n]$", "");
+        dependency = dependency.replaceFirst("[\r]$", "");
+
         if(dependency.startsWith("<") && dependency.endsWith(">")){
             dependencyConverter = mavenConversionService;
         }
