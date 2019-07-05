@@ -9,9 +9,26 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MavenConversionService implements DependencyConverter {
+
+    public List<String> convertDependency(String dependency) {
+
+        List<String> gradleList = new ArrayList<>();
+
+        String [] elements = dependency.trim().split("(?=<dependency>)");
+
+        for (String element : elements) {
+            String gradle = convertSingleTag(element);
+
+            gradleList.add(gradle);
+        }
+
+        return gradleList;
+    }
 
     private Document createDocument(String xml) throws ParserConfigurationException, IOException, SAXException {
 
@@ -25,11 +42,11 @@ public class MavenConversionService implements DependencyConverter {
         return document.getElementsByTagName(mavenPomTag).item(0).getTextContent();
     }
 
-    public String convertDependency(String dependency) {
+    private String convertSingleTag(String element){
 
         Document document = null;
         try {
-            document = createDocument(dependency);
+            document = createDocument(element);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -56,5 +73,6 @@ public class MavenConversionService implements DependencyConverter {
 
         return "compile group:'" + compileGroup + "'" +  ", " + "name" +  ":" + name + "'" + ", " +  "version" + ":"
                 + "'" + version + "'";
+
     }
 }

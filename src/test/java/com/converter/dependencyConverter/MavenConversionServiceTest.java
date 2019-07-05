@@ -35,7 +35,7 @@ public class MavenConversionServiceTest {
     @Test
     public void whenXmlGivenShouldReturnGradleFormat() throws IOException, SAXException, ParserConfigurationException {
 
-        assertThat(testMavenConversionService.convertDependency(xml)).isEqualTo(result);
+        assertThat(testMavenConversionService.convertDependency(xml).get(0)).isEqualTo(result);
     }
 
     @Test

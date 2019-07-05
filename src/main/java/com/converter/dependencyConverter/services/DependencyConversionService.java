@@ -3,6 +3,8 @@ package com.converter.dependencyConverter.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DependencyConversionService implements DependencyConverter{
 
@@ -28,7 +30,7 @@ public class DependencyConversionService implements DependencyConverter{
     }
 
     @Override
-    public String convertDependency(String dependency) {
+    public List<String> convertDependency(String dependency) {
 
         recognize(dependency);
 

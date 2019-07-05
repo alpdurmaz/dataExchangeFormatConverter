@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
@@ -28,9 +30,16 @@ public class HomeController {
     @PostMapping("/index")
     public String convert(@ModelAttribute InputOutputModel inputOutputModel){
 
-        String result = dependencyConversionService.convertDependency(inputOutputModel.getDependency());
+        List<String> dependencyList = dependencyConversionService.convertDependency(inputOutputModel.getDependency());
 
-        inputOutputModel.setDependency(result);
+        String dependency = "";
+
+        for (String element : dependencyList) {
+            dependency += element + "\n";
+
+        }
+
+        inputOutputModel.setDependency(dependency);
 
         return "index";
     }

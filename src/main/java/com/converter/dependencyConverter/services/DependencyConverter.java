@@ -1,5 +1,7 @@
 package com.converter.dependencyConverter.services;
 
+import java.util.List;
+
 public interface DependencyConverter {
-    String convertDependency(String dependency);
+    List<String> convertDependency(String dependency);
 }
