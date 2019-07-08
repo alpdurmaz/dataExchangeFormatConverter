@@ -1,8 +1,8 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.dependencyConversionServices;
 
-import com.converter.dependencyConverter.services.DependencyConversionService;
-import com.converter.dependencyConverter.services.GradleConversionService;
-import com.converter.dependencyConverter.services.MavenConversionService;
+import com.converter.dependencyConverter.services.dependencyConversionServices.DependencyConversionService;
+import com.converter.dependencyConverter.services.dependencyConversionServices.GradleConversionService;
+import com.converter.dependencyConverter.services.dependencyConversionServices.MavenConversionService;
 import org.junit.Before;
 import org.junit.Test;
 

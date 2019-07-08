@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services;
+package com.converter.dependencyConverter.services.dependencyConversionServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

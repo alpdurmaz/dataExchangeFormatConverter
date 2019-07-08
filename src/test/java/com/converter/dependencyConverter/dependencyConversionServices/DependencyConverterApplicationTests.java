@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.dependencyConversionServices;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

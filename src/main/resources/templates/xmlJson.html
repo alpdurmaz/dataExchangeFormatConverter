@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3>Dependency Converter</h3>
+<h4>Enter your dependency</h4>
+<form action="#" th:action="@{/xmlJson}" th:object="${inputOutputModel}" method="post">
+    <textarea rows="30" cols="70" th:field="*{dependency}"></textarea>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>

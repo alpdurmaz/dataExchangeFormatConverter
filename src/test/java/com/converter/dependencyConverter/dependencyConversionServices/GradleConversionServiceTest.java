@@ -1,10 +1,8 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.dependencyConversionServices;
 
-import com.converter.dependencyConverter.services.GradleConversionService;
+import com.converter.dependencyConverter.services.dependencyConversionServices.GradleConversionService;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
