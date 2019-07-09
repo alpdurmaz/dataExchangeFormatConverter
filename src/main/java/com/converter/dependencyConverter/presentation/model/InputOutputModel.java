@@ -7,7 +7,7 @@ public class InputOutputModel {
         return inputOutput;
     }
 
-    public void setInputOutput(String dependency) {
+    public void setInputOutput(String inputOutput) {
         this.inputOutput = inputOutput;
     }
 }

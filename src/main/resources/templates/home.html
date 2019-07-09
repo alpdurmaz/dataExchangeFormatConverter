@@ -13,13 +13,13 @@
 <body>
 <h1>Welcome to Converter</h1>
 
-<button type="button" href="/convert-dependency" class="btn btn-secondary">Gradle - Maven Converter</button>
-<button type="button" th:action="@{/xml-to-json}" class="btn btn-secondary">XML to JSON</button>
-<button type="button" th:action="@{/xml-to-yaml}" class="btn btn-secondary">XML to YAML</button>
-<button type="button" th:action="@{json-to-xml}" class="btn btn-secondary">JSON to XML</button>
-<button type="button" th:action="@{json-to-yaml}" class="btn btn-secondary">JSON to YAML</button>
-<button type="button" th:action="@{yaml-to-json}" class="btn btn-secondary">YAML to JSON</button>
-<button type="button" th:action="@{yaml-to-xml}" class="btn btn-secondary">YAML to XML</button>
+<a href="/convert-dependency"/><button type="button" class="btn btn-secondary">Gradle - Maven Converter</button>
+<a href="/xml-to-json"/><button type="button" th:action="@{/xml-to-json}" class="btn btn-secondary">XML to JSON</button>
+<a href="/xml-to-yaml"/><button type="button" class="btn btn-secondary">XML to YAML</button>
+<a href="/json-to-xml"/><button type="button" class="btn btn-secondary">JSON to XML</button>
+<a href="/json-to-yaml"/><button type="button" class="btn btn-secondary">JSON to YAML</button>
+<a href="/yaml-to-json"/><button type="button" class="btn btn-secondary">YAML to JSON</button>
+<a href="/yaml-to-xml"/><button type="button" class="btn btn-secondary">YAML to XML</button>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
