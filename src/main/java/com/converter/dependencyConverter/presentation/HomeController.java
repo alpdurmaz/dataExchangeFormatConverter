@@ -2,7 +2,7 @@ package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.model.InputOutputModel;
 import com.converter.dependencyConverter.services.dependencyConversionServices.DependencyConversionService;
-import com.converter.dependencyConverter.services.xmlToJsonConversion.XmlJsonConversionService;
+import com.converter.dependencyConverter.services.xmlJsonConversion.XmlJsonConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,13 +58,10 @@ public class HomeController {
     @PostMapping("/xmlJson")
     public String convertXmlToJson(@ModelAttribute InputOutputModel inputOutputModel){
 
-        String json = xmlJsonConversionService.convertXmlToJson(inputOutputModel.getDependency());
+        String json = xmlJsonConversionService.convert(inputOutputModel.getDependency());
 
         inputOutputModel.setDependency(json);
 
         return "xmlJson";
     }
-
-
-
 }

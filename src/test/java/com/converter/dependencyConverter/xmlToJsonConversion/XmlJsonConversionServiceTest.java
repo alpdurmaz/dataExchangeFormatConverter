@@ -1,6 +1,6 @@
 package com.converter.dependencyConverter.xmlToJsonConversion;
 
-import com.converter.dependencyConverter.services.xmlToJsonConversion.XmlJsonConversionService;
+import com.converter.dependencyConverter.services.xmlJsonConversion.XmlJsonConversionService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +17,7 @@ public class XmlJsonConversionServiceTest {
             "        </TAG1>\n" +
             "    </ROOT>";
 
+
     private static final String json = "{\"ROOT\":{\"TAG1\":{\"TAG1-2\":\"tag2\",\"TAG1-3\":\"tag3\"}}}";
 
     @Before
@@ -29,9 +30,13 @@ public class XmlJsonConversionServiceTest {
     @Test
     public void whenXmlGivenShouldReturnJsonFormat() {
 
-        System.out.println(testXmlJsonConversionService.convertXmlToJson(xml));
+        assertThat(testXmlJsonConversionService.convertXmlToJson(xml)).isEqualToIgnoringWhitespace(json);
 
-        assertThat(testXmlJsonConversionService.convertXmlToJson(xml)).isEqualTo(json);
+    }
 
+    @Test
+    public void whenJsonGivenShouldReturnXml(){
+
+        assertThat(testXmlJsonConversionService.convert(json)).isEqualToIgnoringWhitespace(xml);
     }
 }
