@@ -3,8 +3,8 @@
 <body>
 <h3>XML JSON Converter</h3>
 <h4>Enter your XML or JSON File</h4>
-<form action="#" th:action="@{/xmlJson}" th:object="${inputOutputModel}" method="post">
-    <textarea rows="30" cols="70" th:field="*{dependency}"></textarea>
+<form action="#" th:action="@{/json-to-xml}" th:object="${inputOutputModel}" method="post">
+    <textarea rows="30" cols="70" th:field="*{inputOutput}"></textarea>
     <p><input type="submit" value="Submit"/></p>
 </form>
 </body>

@@ -1,13 +1,13 @@
 package com.converter.dependencyConverter.presentation.model;
 
 public class InputOutputModel {
-    private String dependency;
+    private String inputOutput;
 
-    public String getDependency() {
-        return dependency;
+    public String getInputOutput() {
+        return inputOutput;
     }
 
-    public void setDependency(String dependency) {
-        this.dependency = dependency;
+    public void setInputOutput(String dependency) {
+        this.inputOutput = inputOutput;
     }
 }

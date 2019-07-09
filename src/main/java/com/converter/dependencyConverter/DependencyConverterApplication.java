@@ -9,5 +9,4 @@ public class DependencyConverterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DependencyConverterApplication.class, args);
 	}
-
 }
