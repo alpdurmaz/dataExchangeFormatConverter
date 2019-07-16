@@ -115,6 +115,8 @@ public class HomeController {
 
         String xml = jsonConversionService.convertJsonToXml(inputOutputModel.getInputOutput());
 
+        inputOutputModel.setInputOutput(xml);
+
         return "jsonToXml";
     }
 
