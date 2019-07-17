@@ -1,6 +1,8 @@
 package com.converter.dependencyConverter.presentation;
 
-import com.converter.dependencyConverter.presentation.model.InputOutputModel;
+import com.converter.dependencyConverter.presentation.models.EmailModel;
+import com.converter.dependencyConverter.presentation.models.InputOutputModel;
+import com.converter.dependencyConverter.services.EmailService;
 import com.converter.dependencyConverter.services.JSONConversionService;
 import com.converter.dependencyConverter.services.XMLConversionService;
 import com.converter.dependencyConverter.services.YAMLConversionService;
@@ -21,16 +23,18 @@ public class HomeController {
     private XMLConversionService xmlConversionService;
     private JSONConversionService jsonConversionService;
     private YAMLConversionService yamlConversionService;
+    private EmailService emailService;
 
     @Autowired
     public HomeController(DependencyConversionService dependencyConversionService
             , XMLConversionService xmlConversionService
-            , JSONConversionService jsonConversionService, YAMLConversionService yamlConversionService) {
+            , JSONConversionService jsonConversionService, YAMLConversionService yamlConversionService, EmailService emailService) {
 
         this.dependencyConversionService = dependencyConversionService;
         this.xmlConversionService = xmlConversionService;
         this.jsonConversionService = jsonConversionService;
         this.yamlConversionService = yamlConversionService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/")
@@ -174,5 +178,24 @@ public class HomeController {
         inputOutputModel.setInputOutput(json);
 
         return "yamlToXml";
+    }
+
+    @GetMapping("/contact")
+    public String sendEmail(Model model){
+
+        EmailModel emailModel = new EmailModel();
+
+        model.addAttribute("emailModel", emailModel);
+
+        return "contact";
+    }
+
+    @PostMapping("/contact")
+    public String sendEmail(@ModelAttribute EmailModel emailModel){
+
+        emailService.sendSimpleMessage(emailModel.getFrom()
+                , System.getenv("EMAIL"), emailModel.getSubject(), emailModel.getMessage());
+
+        return "contact";
     }
 }

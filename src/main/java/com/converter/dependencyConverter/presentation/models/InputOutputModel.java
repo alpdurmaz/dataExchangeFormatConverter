@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.presentation.model;
+package com.converter.dependencyConverter.presentation.models;
 
 public class InputOutputModel {
     private String inputOutput;
