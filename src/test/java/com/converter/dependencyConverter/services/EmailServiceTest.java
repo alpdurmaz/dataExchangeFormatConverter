@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.services;
 
 import com.converter.dependencyConverter.services.EmailService;
 import org.junit.Before;

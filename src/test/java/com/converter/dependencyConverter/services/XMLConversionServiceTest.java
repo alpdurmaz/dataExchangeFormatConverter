@@ -1,6 +1,5 @@
-package com.converter.dependencyConverter;
+package com.converter.dependencyConverter.services;
 
-import com.converter.dependencyConverter.services.XMLConversionService;
 import org.junit.Before;
 import org.junit.Test;
 

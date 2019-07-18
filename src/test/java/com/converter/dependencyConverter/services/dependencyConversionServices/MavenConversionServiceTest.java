@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.dependencyConversionServices;
+package com.converter.dependencyConverter.services.dependencyConversionServices;
 
 import com.converter.dependencyConverter.services.dependencyConversionServices.MavenConversionService;
 import org.junit.Before;
