@@ -1,6 +1,5 @@
 package com.converter.dependencyConverter.services;
 
-import com.converter.dependencyConverter.services.EmailService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mail.SimpleMailMessage;
@@ -36,7 +35,5 @@ public class EmailServiceTest {
 
         testEmailService.sendSimpleMessage(FROM, TO, SUBJECT, MESSAGE);
         verify(mockJavaMailSender, times(1)).send(simpleMailMessage);
-
     }
-
 }
