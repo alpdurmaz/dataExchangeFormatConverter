@@ -1,5 +1,7 @@
 package com.converter.dependencyConverter.services;
 
+import com.converter.dependencyConverter.exception.exceptions.JSONConversionException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jdom2.JDOMException;
@@ -17,23 +19,40 @@ import java.io.StringReader;
 @Service
 public class JSONConversionService{
 
-    public String convertJsonToXml(String json) throws JDOMException, IOException {
+    public String convertJsonToXml(String json) {
 
         JSONObject jsonObject = new JSONObject(json);
 
         String unformattedXml = XML.toString(jsonObject);
 
-        String formatted = new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder()
-                .build(new StringReader(unformattedXml)));
+        String formatted;
+        try {
+            formatted = new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder()
+                    .build(new StringReader(unformattedXml)));
+        } catch (JDOMException e) {
+            throw new JSONConversionException("An Error Occurred While Converting JSON File", e);
+        } catch (IOException e) {
+            throw new JSONConversionException("An Error Occurred While Reading JSON File", e);
+        }
 
         return formatted;
     }
 
-    public String convertJsonToYaml(String json) throws IOException {
+    public String convertJsonToYaml(String json){
 
-        JsonNode jsonNode = new ObjectMapper().readTree(json);
+        JsonNode jsonNode;
+        try {
+            jsonNode = new ObjectMapper().readTree(json);
+        } catch (IOException e) {
+            throw new JSONConversionException("An Error Occurred While Reading JSON File", e);
+        }
 
-        String yaml = new YAMLMapper().writeValueAsString(jsonNode);
+        String yaml;
+        try {
+            yaml = new YAMLMapper().writeValueAsString(jsonNode);
+        } catch (JsonProcessingException e) {
+            throw new JSONConversionException("An Error Occurred While Processing JSON File", e);
+        }
 
         return yaml;
     }
