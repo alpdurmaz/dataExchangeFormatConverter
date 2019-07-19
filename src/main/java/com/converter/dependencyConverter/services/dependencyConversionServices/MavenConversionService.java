@@ -1,5 +1,6 @@
 package com.converter.dependencyConverter.services.dependencyConversionServices;
 
+import com.converter.dependencyConverter.exception.exceptions.MavenConversionException;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class MavenConversionService implements DependencyConverter {
 
-    public List<String> convertDependency(String dependency) {
+    public List<String> convertDependency(String dependency){
 
         List<String> gradleList = new ArrayList<>();
 
@@ -30,9 +31,18 @@ public class MavenConversionService implements DependencyConverter {
         return gradleList;
     }
 
-    private Document createDocument(String xml) throws ParserConfigurationException, IOException, SAXException {
+    private Document createDocument(String xml) {
 
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+        Document document;
+        try {
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+        } catch (SAXException e) {
+            throw new MavenConversionException("An Error Occurred While Parsing XML", e);
+        } catch (IOException e) {
+            throw new MavenConversionException("An Error Occurred While Reading XML File", e);
+        } catch (ParserConfigurationException e) {
+            throw new MavenConversionException("An Error Occurred in Parse Configuration", e);
+        }
 
         return document;
     }
@@ -42,18 +52,9 @@ public class MavenConversionService implements DependencyConverter {
         return document.getElementsByTagName(mavenPomTag).item(0).getTextContent();
     }
 
-    private String convertSingleTag(String element){
+    private String convertSingleTag(String element) {
 
-        Document document = null;
-        try {
-            document = createDocument(element);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        Document document = createDocument(element);
 
         if(document.getElementsByTagName("dependency").item(0) == null){
             throw new RuntimeException("Invalid Dependency");
