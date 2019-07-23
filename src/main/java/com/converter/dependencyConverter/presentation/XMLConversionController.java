@@ -1,8 +1,8 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.JSONConversionService;
-import com.converter.dependencyConverter.services.XMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.XMLConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

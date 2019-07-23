@@ -1,7 +1,7 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.dependencyConversionServices.DependencyConversionService;
+import com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices.DependencyConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

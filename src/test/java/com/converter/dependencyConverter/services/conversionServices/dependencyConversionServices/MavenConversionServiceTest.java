@@ -1,6 +1,5 @@
-package com.converter.dependencyConverter.services.dependencyConversionServices;
+package com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices;
 
-import com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices.MavenConversionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;

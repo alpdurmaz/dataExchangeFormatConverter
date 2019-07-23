@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services;
+package com.converter.dependencyConverter.services.conversionServices;
 
 import org.json.JSONObject;
 import org.json.XML;

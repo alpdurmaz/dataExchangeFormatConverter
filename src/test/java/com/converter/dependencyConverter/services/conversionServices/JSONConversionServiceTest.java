@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services;
+package com.converter.dependencyConverter.services.conversionServices;
 
 import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
 import org.jdom2.JDOMException;
