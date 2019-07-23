@@ -1,6 +1,5 @@
-package com.converter.dependencyConverter.services.dependencyConversionServices;
+package com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices;
 
-import com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices.GradleConversionService;
 import org.junit.Before;
 import org.junit.Test;
 

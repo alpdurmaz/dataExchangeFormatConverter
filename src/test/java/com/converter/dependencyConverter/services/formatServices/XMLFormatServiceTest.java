@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class XMLConversionServiceTest {
+public class XMLFormatServiceTest {
 
     private static final String XML = "<tag>content</tag>";
     private XMLFormatService testXmlFormatService;

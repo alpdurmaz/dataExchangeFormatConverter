@@ -8,14 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 @Controller
-public class FormatControllers {
+public class FormatController {
 
     private XMLFormatService xmlFormatService;
 
     @Autowired
-    public FormatControllers(XMLFormatService xmlFormatService) {
+    public FormatController(XMLFormatService xmlFormatService) {
         this.xmlFormatService = xmlFormatService;
     }
 
@@ -28,7 +33,7 @@ public class FormatControllers {
     }
 
     @PostMapping("/formatXML")
-    public String formatXML(@ModelAttribute InputOutputModel inputOutputModel){
+    public String formatXML(@ModelAttribute InputOutputModel inputOutputModel) throws ParserConfigurationException, TransformerException, SAXException, IOException {
 
         String unformatted = inputOutputModel.getInputOutput();
         String formatted = xmlFormatService.formatXML(unformatted);
