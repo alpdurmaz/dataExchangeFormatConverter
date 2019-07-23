@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services.dependencyConversionServices;
+package com.converter.dependencyConverter.services.conversionServices;
 
 import org.springframework.stereotype.Service;
 
