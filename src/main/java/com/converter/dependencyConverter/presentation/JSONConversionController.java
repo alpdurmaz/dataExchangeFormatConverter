@@ -6,6 +6,7 @@ import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class JSONConversionController {
 
     private JSONConversionService jsonConversionService;
+    private String pageInfo;
 
     @Autowired
     public JSONConversionController(JSONConversionService jsonConversionService) {
@@ -25,13 +27,20 @@ public class JSONConversionController {
     @GetMapping("/json-to-xml")
     public String convertJsonToXml(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+        inputOutputModel.setError(false);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "jsontoxml";
 
         return "jsonToXml";
     }
 
     @PostMapping("/json-to-xml")
     public String convertJsonToXml(@ModelAttribute InputOutputModel inputOutputModel) throws JDOMException, IOException {
+
+        inputOutputModel.setError(false);
 
         String xml = jsonConversionService.convertJsonToXml(inputOutputModel.getInputOutput());
 
@@ -43,7 +52,12 @@ public class JSONConversionController {
     @GetMapping("/json-to-yaml")
     public String convertJsonToYaml(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+        inputOutputModel.setError(false);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "jsontoyaml";
 
         return "jsonToYaml";
     }
@@ -51,10 +65,32 @@ public class JSONConversionController {
     @PostMapping("/json-to-yaml")
     public String convertJsonToYaml(@ModelAttribute InputOutputModel inputOutputModel) throws IOException {
 
+        inputOutputModel.setError(false);
+
         String yaml = jsonConversionService.convertJsonToYaml(inputOutputModel.getInputOutput());
 
         inputOutputModel.setInputOutput(yaml);
 
         return "jsonToYaml";
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public String handleForJsonToXml(Model model){
+
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        inputOutputModel.setError(true);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        if(pageInfo.equals("jsontoxml")){
+            return "jsonToXml";
+        }
+
+        else if (pageInfo.equals("jsontoyaml")){
+            return "jsonToYaml";
+        }
+
+        return "home";
     }
 }

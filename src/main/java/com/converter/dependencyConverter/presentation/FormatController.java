@@ -5,6 +5,7 @@ import com.converter.dependencyConverter.services.formatServices.XMLFormatServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,9 @@ public class FormatController {
     @GetMapping("/formatXML")
     public String formatXML(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
 
         return "formatXml";
     }
@@ -35,10 +38,24 @@ public class FormatController {
     @PostMapping("/formatXML")
     public String formatXML(@ModelAttribute InputOutputModel inputOutputModel) throws ParserConfigurationException, TransformerException, SAXException, IOException {
 
+        inputOutputModel.setError(false);
+
         String unformatted = inputOutputModel.getInputOutput();
         String formatted = xmlFormatService.formatXML(unformatted);
 
         inputOutputModel.setInputOutput(formatted);
+
+        return "formatXml";
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public String handleForJsonToXml(Model model) {
+
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        inputOutputModel.setError(true);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
 
         return "formatXml";
     }

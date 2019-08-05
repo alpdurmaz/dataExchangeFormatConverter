@@ -5,6 +5,7 @@ import com.converter.dependencyConverter.services.conversionServices.dependencyC
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +25,19 @@ public class DependencyConversionController {
     @GetMapping("/convert-dependency")
     public String convertdependency(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        inputOutputModel.setError(false);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
 
         return "convertDependency";
     }
 
     @PostMapping("/convert-dependency")
-    public String convertdependency(@ModelAttribute InputOutputModel inputOutputModel){
+    public String convertdependency(@ModelAttribute InputOutputModel inputOutputModel) {
+
+        inputOutputModel.setError(false);
 
         List<String> dependencyList = dependencyConversionService.convertDependency(inputOutputModel.getInputOutput());
 
@@ -42,6 +49,17 @@ public class DependencyConversionController {
         }
 
         inputOutputModel.setInputOutput(dependency);
+
+        return "convertDependency";
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public String handle(Model model){
+
+        InputOutputModel inputOutputModel = new InputOutputModel();
+        inputOutputModel.setError(true);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
 
         return "convertDependency";
     }

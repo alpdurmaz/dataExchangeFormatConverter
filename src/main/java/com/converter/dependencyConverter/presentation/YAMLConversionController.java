@@ -7,6 +7,7 @@ import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ public class YAMLConversionController {
 
     private YAMLConversionService yamlConversionService;
     private JSONConversionService jsonConversionService;
+    private String pageInfo;
 
     @Autowired
     public YAMLConversionController(YAMLConversionService yamlConversionService, JSONConversionService jsonConversionService) {
@@ -28,7 +30,11 @@ public class YAMLConversionController {
     @GetMapping("/yaml-to-json")
     public String convertYamltoJson(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "yamltojson";
 
         return "yamlToJson";
     }
@@ -46,7 +52,11 @@ public class YAMLConversionController {
     @GetMapping("/yaml-to-xml")
     public String convertYamltoXml(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "yamltoxml";
 
         return "yamlToXml";
     }
@@ -61,5 +71,25 @@ public class YAMLConversionController {
         inputOutputModel.setInputOutput(json);
 
         return "yamlToXml";
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public String handleForJsonToXml(Model model){
+
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        inputOutputModel.setError(true);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        if(pageInfo.equals("yamltojson")){
+            return "yamlToJson";
+        }
+
+        else if (pageInfo.equals("yamltoxml")){
+            return "yamlToXml";
+        }
+
+        return "home";
     }
 }
