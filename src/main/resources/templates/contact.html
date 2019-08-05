@@ -8,9 +8,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <title>Online JSON to XML converter</title>
-<div th:replace="/fragment/navbar :: navbar"></div>
-</head>
 
+</head>
+<div th:replace="/fragment/navbar :: navbar"></div>
+<style>
+    body{
+    background-color: #D5DBE3;
+    }
+</style>
 <body>
 <div class="row" th:action="@{/contact}" th:object="${emailModel}" method="post">
     <div class="col-md-6 col-md-offset-3">
