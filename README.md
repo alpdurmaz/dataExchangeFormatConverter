@@ -10,4 +10,4 @@ Simple converter converts:</br>
 - YAML to XML</br>
 - YAML to JSON</br>
 
-Formats an XML file
+Formats an XML file.
