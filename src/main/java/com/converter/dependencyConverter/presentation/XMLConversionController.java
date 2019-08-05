@@ -6,6 +6,7 @@ import com.converter.dependencyConverter.services.conversionServices.XMLConversi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ public class XMLConversionController {
 
     private XMLConversionService xmlConversionService;
     private JSONConversionService jsonConversionService;
+    private String pageInfo;
 
     @Autowired
     public XMLConversionController(XMLConversionService xmlConversionService, JSONConversionService jsonConversionService) {
@@ -27,13 +29,19 @@ public class XMLConversionController {
     @GetMapping("/xml-to-json")
     public String convertXmlToJson(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "xmltojson";
 
         return "xmlToJson";
     }
 
     @PostMapping("/xml-to-json")
     public String convertXmlToJson(@ModelAttribute InputOutputModel inputOutputModel){
+
+        inputOutputModel.setError(false);
 
         String json = xmlConversionService.convertXmlToJson(inputOutputModel.getInputOutput());
 
@@ -45,13 +53,19 @@ public class XMLConversionController {
     @GetMapping("/xml-to-yaml")
     public String convertXmlToYaml(Model model){
 
-        model.addAttribute("inputOutputModel", new InputOutputModel());
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        pageInfo = "xmltoyaml";
 
         return "xmlToYaml";
     }
 
     @PostMapping("/xml-to-yaml")
     public String convertXmlToYaml(@ModelAttribute InputOutputModel inputOutputModel) throws IOException {
+
+        inputOutputModel.setError(false);
 
         String json = xmlConversionService.convertXmlToJson(inputOutputModel.getInputOutput());
 
@@ -60,5 +74,25 @@ public class XMLConversionController {
         inputOutputModel.setInputOutput(yaml);
 
         return "xmlToYaml";
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public String handleForJsonToXml(Model model){
+
+        InputOutputModel inputOutputModel = new InputOutputModel();
+
+        inputOutputModel.setError(true);
+
+        model.addAttribute("inputOutputModel", inputOutputModel);
+
+        if(pageInfo.equals("xmltojson")){
+            return "xmlToJson";
+        }
+
+        else if (pageInfo.equals("xmltoyaml")){
+            return "xmlToYaml";
+        }
+
+        return "home";
     }
 }

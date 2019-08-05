@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:object="${inputOutputModel}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,9 +12,17 @@
 
 <div th:replace="/fragment/navbar :: navbar"></div>
 
+<div th:if="${inputOutputModel.error}">
+    <script>
+       alert('Error Occurred in Conversion')
+   </script>
+</div>
+
+<div th:unless="${inputOutputModel.error}"></div>
+
 <h3>XML to YAML Converter</h3>
 <h4>Enter your XML File</h4>
-<form action="#" th:action="@{/xml-to-yaml}" th:object="${inputOutputModel}" method="post">
+<form action="#" th:action="@{/xml-to-yaml}" method="post">
     <textarea rows="20" cols="70" th:field="*{inputOutput}"></textarea>
     <p><input type="submit" value="Convert"/></p>
 </form>
