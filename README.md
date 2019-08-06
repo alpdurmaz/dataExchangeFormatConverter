@@ -12,35 +12,35 @@ Simple converter converts:</br>
 
 Formats an XML file.
 
-# Built With
+## Built With
 
-## Frameworks
+### Frameworks
 - Spring Boot</br>
 - Spring Framework</br>
 - Spring MVC - Thymeleaf </br>
 
-## Dependency Conversion </br>
+### Dependency Conversion </br>
 - Java Regex used for Gradle & Maven dependency recognition and processing.</br>
 
-## XML Conversion</br>
+### XML Conversion</br>
 - JSON Library</br>
 
-## JSON Conversion</br>
+### JSON Conversion</br>
 - JSON Library</br>
 
-## YAML Conversion</br>
+### YAML Conversion</br>
 - Jackson Library</br>
 
-## Build Tool - Dependency Management</br>
+### Build Tool - Dependency Management</br>
 - Gradle</br>
 
-## Test</br>
+### Test</br>
 - JUnit</br>
 - Spring Boot Test</br>
 
-# Author</br>
+## Author</br>
 - Alp Durmaz
 
-# Contributing</br>
+## Contributing</br>
 - Please send an email for any issue to dexconverter@gmail.com
 
