@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services.conversionServices;
+package com.converter.dependencyConverter.services.conversionServices.yamlConversion;
 
 import com.converter.dependencyConverter.exception.exceptions.JSONConversionException;
 import com.converter.dependencyConverter.exception.exceptions.YAMLConversionException;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class YAMLConversionService {
+public class YAMLConversionService implements YAMLConverter{
 
     public String convertYamlToJson(String yaml) {
 

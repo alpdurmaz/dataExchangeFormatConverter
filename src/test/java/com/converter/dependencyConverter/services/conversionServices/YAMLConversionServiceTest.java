@@ -1,6 +1,6 @@
 package com.converter.dependencyConverter.services.conversionServices;
 
-import com.converter.dependencyConverter.services.conversionServices.YAMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.yamlConversion.YAMLConversionService;
 import org.junit.Before;
 import org.junit.Test;
 

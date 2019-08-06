@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 @Service
-public class XMLFormatService {
+public class XMLFormatService implements XMLFormatter{
 
     public String formatXML(String xml) {
 

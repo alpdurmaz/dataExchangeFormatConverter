@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices;
+package com.converter.dependencyConverter.services.conversionServices.dependencyConversion;
 
 import java.util.List;
 

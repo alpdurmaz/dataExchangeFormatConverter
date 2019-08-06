@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services.conversionServices;
+package com.converter.dependencyConverter.services.conversionServices.jsonConversion;
 
 import com.converter.dependencyConverter.exception.exceptions.JSONConversionException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 @Service
-public class JSONConversionService{
+public class JSONConversionService implements JSONConverter{
 
     public String convertJsonToXml(String json) {
 

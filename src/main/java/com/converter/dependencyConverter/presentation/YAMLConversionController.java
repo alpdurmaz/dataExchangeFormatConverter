@@ -1,8 +1,10 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
-import com.converter.dependencyConverter.services.conversionServices.YAMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConverter;
+import com.converter.dependencyConverter.services.conversionServices.yamlConversion.YAMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.yamlConversion.YAMLConverter;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,14 @@ import java.io.IOException;
 @Controller
 public class YAMLConversionController {
 
-    private YAMLConversionService yamlConversionService;
-    private JSONConversionService jsonConversionService;
+    private YAMLConverter yamlConverter;
+    private JSONConverter jsonConverter;
     private String pageInfo;
 
     @Autowired
     public YAMLConversionController(YAMLConversionService yamlConversionService, JSONConversionService jsonConversionService) {
-        this.yamlConversionService = yamlConversionService;
-        this.jsonConversionService = jsonConversionService;
+        this.yamlConverter = yamlConversionService;
+        this.jsonConverter = jsonConversionService;
     }
 
     @GetMapping("/yaml-to-json")
@@ -42,7 +44,7 @@ public class YAMLConversionController {
     @PostMapping("/yaml-to-json")
     public String convertYamltoJson(@ModelAttribute InputOutputModel inputOutputModel) throws IOException {
 
-        String json = yamlConversionService.convertYamlToJson(inputOutputModel.getInputOutput());
+        String json = yamlConverter.convertYamlToJson(inputOutputModel.getInputOutput());
 
         inputOutputModel.setInputOutput(json);
 
@@ -64,9 +66,9 @@ public class YAMLConversionController {
     @PostMapping("/yaml-to-xml")
     public String convertYamltoXml(@ModelAttribute InputOutputModel inputOutputModel) throws IOException, JDOMException {
 
-        String json = yamlConversionService.convertYamlToJson(inputOutputModel.getInputOutput());
+        String json = yamlConverter.convertYamlToJson(inputOutputModel.getInputOutput());
 
-        String xml = jsonConversionService.convertJsonToXml(json);
+        String xml = jsonConverter.convertJsonToXml(json);
 
         inputOutputModel.setInputOutput(json);
 

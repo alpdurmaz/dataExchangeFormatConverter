@@ -1,8 +1,9 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
-import com.converter.dependencyConverter.services.conversionServices.XMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.xmlConversion.XMLConversionService;
+import com.converter.dependencyConverter.services.conversionServices.xmlConversion.XMLConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +17,13 @@ import java.io.IOException;
 @Controller
 public class XMLConversionController {
 
-    private XMLConversionService xmlConversionService;
+    private XMLConverter xmlConverter;
     private JSONConversionService jsonConversionService;
     private String pageInfo;
 
     @Autowired
     public XMLConversionController(XMLConversionService xmlConversionService, JSONConversionService jsonConversionService) {
-        this.xmlConversionService = xmlConversionService;
+        this.xmlConverter = xmlConversionService;
         this.jsonConversionService = jsonConversionService;
     }
 
@@ -43,7 +44,7 @@ public class XMLConversionController {
 
         inputOutputModel.setError(false);
 
-        String json = xmlConversionService.convertXmlToJson(inputOutputModel.getInputOutput());
+        String json = xmlConverter.convertXmlToJson(inputOutputModel.getInputOutput());
 
         inputOutputModel.setInputOutput(json);
 
@@ -67,7 +68,7 @@ public class XMLConversionController {
 
         inputOutputModel.setError(false);
 
-        String json = xmlConversionService.convertXmlToJson(inputOutputModel.getInputOutput());
+        String json = xmlConverter.convertXmlToJson(inputOutputModel.getInputOutput());
 
         String yaml = jsonConversionService.convertJsonToYaml(json);
 

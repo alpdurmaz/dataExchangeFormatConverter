@@ -2,6 +2,7 @@ package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
 import com.converter.dependencyConverter.services.formatServices.XMLFormatService;
+import com.converter.dependencyConverter.services.formatServices.XMLFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,11 @@ import java.io.IOException;
 @Controller
 public class FormatController {
 
-    private XMLFormatService xmlFormatService;
+    private XMLFormatter xmlFormatter;
 
     @Autowired
     public FormatController(XMLFormatService xmlFormatService) {
-        this.xmlFormatService = xmlFormatService;
+        this.xmlFormatter = xmlFormatService;
     }
 
     @GetMapping("/formatXML")
@@ -41,7 +42,7 @@ public class FormatController {
         inputOutputModel.setError(false);
 
         String unformatted = inputOutputModel.getInputOutput();
-        String formatted = xmlFormatService.formatXML(unformatted);
+        String formatted = xmlFormatter.formatXML(unformatted);
 
         inputOutputModel.setInputOutput(formatted);
 

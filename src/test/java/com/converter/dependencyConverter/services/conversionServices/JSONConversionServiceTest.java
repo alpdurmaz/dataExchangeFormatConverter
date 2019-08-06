@@ -1,6 +1,6 @@
 package com.converter.dependencyConverter.services.conversionServices;
 
-import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConversionService;
 import org.jdom2.JDOMException;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices;
+package com.converter.dependencyConverter.services.conversionServices.dependencyConversion;
 
 import com.converter.dependencyConverter.exception.exceptions.MavenConversionException;
 import org.springframework.stereotype.Service;
