@@ -1,7 +1,8 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.conversionServices.dependencyConversionServices.DependencyConversionService;
+import com.converter.dependencyConverter.services.conversionServices.dependencyConversion.DependencyConversionService;
+import com.converter.dependencyConverter.services.conversionServices.dependencyConversion.DependencyConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +16,11 @@ import java.util.List;
 @Controller
 public class DependencyConversionController {
 
-    private DependencyConversionService dependencyConversionService;
+    private DependencyConverter dependencyConverter;
 
     @Autowired
     public DependencyConversionController(DependencyConversionService dependencyConversionService) {
-        this.dependencyConversionService = dependencyConversionService;
+        this.dependencyConverter = dependencyConversionService;
     }
 
     @GetMapping("/convert-dependency")
@@ -39,7 +40,7 @@ public class DependencyConversionController {
 
         inputOutputModel.setError(false);
 
-        List<String> dependencyList = dependencyConversionService.convertDependency(inputOutputModel.getInputOutput());
+        List<String> dependencyList = dependencyConverter.convertDependency(inputOutputModel.getInputOutput());
 
         String dependency = "";
 

@@ -1,7 +1,8 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.InputOutputModel;
-import com.converter.dependencyConverter.services.conversionServices.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConversionService;
+import com.converter.dependencyConverter.services.conversionServices.jsonConversion.JSONConverter;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,12 @@ import java.io.IOException;
 @Controller
 public class JSONConversionController {
 
-    private JSONConversionService jsonConversionService;
+    private JSONConverter jsonConverter;
     private String pageInfo;
 
     @Autowired
     public JSONConversionController(JSONConversionService jsonConversionService) {
-        this.jsonConversionService = jsonConversionService;
+        this.jsonConverter = jsonConversionService;
     }
 
     @GetMapping("/json-to-xml")
@@ -42,7 +43,7 @@ public class JSONConversionController {
 
         inputOutputModel.setError(false);
 
-        String xml = jsonConversionService.convertJsonToXml(inputOutputModel.getInputOutput());
+        String xml = jsonConverter.convertJsonToXml(inputOutputModel.getInputOutput());
 
         inputOutputModel.setInputOutput(xml);
 
@@ -67,7 +68,7 @@ public class JSONConversionController {
 
         inputOutputModel.setError(false);
 
-        String yaml = jsonConversionService.convertJsonToYaml(inputOutputModel.getInputOutput());
+        String yaml = jsonConverter.convertJsonToYaml(inputOutputModel.getInputOutput());
 
         inputOutputModel.setInputOutput(yaml);
 

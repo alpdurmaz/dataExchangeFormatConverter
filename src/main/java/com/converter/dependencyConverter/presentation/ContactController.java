@@ -1,7 +1,8 @@
 package com.converter.dependencyConverter.presentation;
 
 import com.converter.dependencyConverter.presentation.models.EmailModel;
-import com.converter.dependencyConverter.services.EmailService;
+import com.converter.dependencyConverter.services.emailService.EmailSender;
+import com.converter.dependencyConverter.services.emailService.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ContactController {
 
-    private EmailService emailService;
+    private EmailSender emailSender;
 
     @Autowired
     public ContactController(EmailService emailService) {
-        this.emailService = emailService;
+        this.emailSender = emailService;
     }
 
     @GetMapping("/contact")
@@ -32,7 +33,7 @@ public class ContactController {
     @PostMapping("/contact")
     public String sendEmail(@ModelAttribute EmailModel emailModel){
 
-        emailService.sendSimpleMessage(emailModel.getFrom()
+        emailSender.sendSimpleMessage(emailModel.getFrom()
                 , System.getenv("EMAIL"), emailModel.getSubject(), emailModel.getMessage());
 
         return "contact";
