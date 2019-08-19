@@ -13,11 +13,11 @@ Simple converter converts:</br>
 Formats an XML file.
 
 ## Built With
-
-### Frameworks
 - Spring Boot</br>
-- Spring Framework</br>
 - Spring MVC - Thymeleaf </br>
+
+### Framework
+- Spring Framework</br>
 
 ### Dependency Conversion </br>
 - Java Regex used for Gradle & Maven dependency recognition and processing.</br>
